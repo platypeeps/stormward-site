@@ -20,7 +20,7 @@ Stormward collects nothing about you.
   holds a picture of the screen and a few lines about the game: build,
   iPad model, iPadOS version, the site you were on and your save slot.
   You see all of it before you send, and nothing goes unless you press
-  Send. I use it only to fix the bug, and delete it once fixed.
+  Send. I use it only to fix the bug.
 - The help link on the game's overview page opens this site in your
   browser. The site is on GitHub Pages, which keeps its own server logs
   under GitHub's privacy policy. I do not see who visits.
