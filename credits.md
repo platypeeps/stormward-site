@@ -19,6 +19,12 @@ It uses free assets made by other people. Thank you.
   [Poly Pizza](https://poly.pizza/m/8uBbH7Dvmb).
   Licence: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
 
+## Sound
+
+- **Kenney**: Interface Sounds, Impact Sounds and Sci-Fi Sounds.
+  [kenney.nl](https://kenney.nl).
+  Licence: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+
 CC0 asks for no credit. They get it anyway.
 
 ## Fonts
