@@ -20,6 +20,9 @@ fights from cover in turns. You trade between colonies and pay off the
 Company's debt. The world runs on real ideas, like tariffs, debt and
 a carbon price, and the game explains each one where it matters.
 
+Read [what is in the game](game.html), the [changes](changes.html) in
+each test build, and the [roadmap](roadmap.html).
+
 ## What you need
 
 - An iPad with iPadOS 26 or later.
