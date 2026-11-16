@@ -4,6 +4,14 @@ title: Stormward support
 
 # Stormward
 
+<p class="storm">IPAD · IPADOS 26 · FREE</p>
+
+<figure class="shot">
+  <img src="assets/stormward.jpg" width="1600" height="1200"
+       alt="Stormward on iPad: the crew's red ship, a ring of shelter, belts feeding a refiner, and a vault gate on purple ground under the storm clock.">
+  <figcaption>The landing site: ship, shelter ring, belts and the vault.</figcaption>
+</figure>
+
 Stormward is a game for iPad. You run outposts on a world the storms
 are tearing apart, and you work out who is making the storms.
 

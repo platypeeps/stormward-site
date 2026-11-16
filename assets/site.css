@@ -1,0 +1,73 @@
+/* The app's HUD (Hud.cs): dark paper, raised panels, cyan select, amber storm. */
+:root {
+  --paper: #0b1016; --raised: #121820; --well: #060a0f; --line: #2e363e;
+  --ink: #e3e8ee; --dim: #b7bec7; --muted: #9099a3;
+  --select: #51cade; --select-back: #04313c; --caution: #ebbd57;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+body {
+  margin: 0; background: var(--paper); color: var(--dim);
+  font: 400 17px/1.6 var(--font-body);
+  padding: 0 16px 48px;
+}
+.bar, .panel, .foot { max-width: 820px; margin: 0 auto; }
+.bar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 24px 0;
+}
+.mark { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+.mark img { border-radius: 10px; }
+.mark span { font: 600 24px/1 var(--font-display); text-transform: uppercase; letter-spacing: 0.06em; }
+nav { display: flex; gap: 8px; }
+.key {
+  display: inline-block; white-space: nowrap; padding: 10px 16px;
+  background: var(--raised); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--ink); text-decoration: none;
+  font: 600 14px/1 var(--font-display); text-transform: uppercase; letter-spacing: 0.06em;
+}
+.key:hover { border-color: var(--muted); }
+.key:focus-visible, a:focus-visible { outline: 2px solid var(--select); outline-offset: 2px; }
+.key.on { background: var(--select-back); border-color: var(--select); }
+.panel {
+  background: var(--raised); border: 1px solid var(--line); border-radius: 8px;
+  padding: 8px 32px 32px;
+}
+h1, h2 {
+  color: var(--ink); font-family: var(--font-display); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+h1 { font-size: 34px; margin: 24px 0 12px; }
+h2 {
+  font-size: 15px; color: var(--muted); margin: 36px 0 12px;
+  padding-top: 20px; border-top: 1px solid var(--line);
+}
+p, li { max-width: 64ch; }
+a { color: var(--select); }
+a:hover { color: var(--ink); }
+strong { color: var(--ink); font-weight: 500; }
+code { font-family: var(--font-mono); }
+ul { padding-left: 20px; }
+.storm {
+  display: inline-block; margin: 0 0 16px; padding: 6px 12px;
+  background: var(--well); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--caution); font: 500 14px/1.4 var(--font-mono); letter-spacing: 0.04em;
+}
+.shot { margin: 24px -33px; }
+.shot img {
+  display: block; width: 100%; height: auto;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.shot figcaption { padding: 8px 33px 0; color: var(--muted); font-size: 14px; }
+.foot { padding: 20px 0; color: var(--muted); font: 400 13px/1.4 var(--font-mono); }
+@media (max-width: 560px) {
+  .panel { padding: 4px 18px 24px; }
+  .shot { margin: 20px -19px; }
+  .shot figcaption { padding: 8px 19px 0; }
+  h1 { font-size: 28px; }
+  .key { padding: 10px 12px; }
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title | default: site.title }}</title>
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="{{ '/assets/icon.png' | relative_url }}">
+<link rel="apple-touch-icon" href="{{ '/assets/apple-touch-icon.png' | relative_url }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+</head>
+<body>
+<header class="bar">
+  <a class="mark" href="{{ '/' | relative_url }}">
+    <img src="{{ '/assets/icon.png' | relative_url }}" alt="" width="44" height="44">
+    <span>Stormward</span>
+  </a>
+  <nav>
+    <a class="key{% if page.url == '/' %} on{% endif %}" href="{{ '/' | relative_url }}">Support</a>
+    <a class="key{% if page.url contains 'privacy' %} on{% endif %}" href="{{ '/privacy.html' | relative_url }}">Privacy</a>
+    <a class="key{% if page.url contains 'credits' %} on{% endif %}" href="{{ '/credits.html' | relative_url }}">Credits</a>
+  </nav>
+</header>
+<main class="panel">
+{{ content }}
+</main>
+<footer class="foot">Stormward for iPad · made by Sven Delmas</footer>
+</body>
+</html>
