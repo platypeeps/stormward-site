@@ -25,6 +25,16 @@ It uses free assets made by other people. Thank you.
   [kenney.nl](https://kenney.nl).
   Licence: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
 
+## Music
+
+- **isaiah658**: Ambient Relaxing Loop, the surface theme.
+  [OpenGameArt](https://opengameart.org/content/ambient-relaxing-loop).
+  Licence: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+- **congusbongus**: Cathedral in the forest, the cavern and title
+  theme.
+  [OpenGameArt](https://opengameart.org/content/cathedral-in-the-forest-ambient-loop).
+  Licence: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+
 CC0 asks for no credit. They get it anyway.
 
 ## Fonts
