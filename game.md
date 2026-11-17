@@ -216,7 +216,7 @@ mark; the storm's bolt covers the others.</p>
   <li><span class="sym t-seen c-ink"><svg aria-hidden="true"><use href="#m-ship"/></svg></span>Here: the tile you are on.</li>
   <li><span class="sym t-seen c-ink"><svg aria-hidden="true"><use href="#m-vault"/></svg></span>A vault.</li>
   <li><span class="sym t-fog c-muted"><svg aria-hidden="true"><use href="#m-bolt"/></svg></span>The Engine storm: the tiles its front covers now. It shows over fog too.</li>
-  <li><span class="sym t-seen c-ink"><svg aria-hidden="true"><use href="#m-engine"/></svg></span>The Storm Engine. It shows only once you have analysed every vault sample.</li>
+  <li><span class="sym t-seen c-ink"><svg aria-hidden="true"><use href="#m-engine"/></svg></span>The Storm Engine. It appears later.</li>
 </ul>
 <p><b>Zoomed in</b>, with a pinch or the + and &minus; keys, each
 tile shows its ground and what is known on it.</p>
