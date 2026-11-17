@@ -106,3 +106,21 @@ h3 {
   text-transform: uppercase; letter-spacing: 0.05em;
 }
 .parts span { display: block; padding: 2px 10px 0; color: var(--muted); }
+/* A tap on any picture opens its full-size copy. */
+a.zoom { display: block; cursor: zoom-in; }
+/* The map legend: the game's own marks and colours, each with words. */
+.legend .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.legend ul { list-style: none; padding: 0; margin: 8px 0 16px; }
+.legend li { display: flex; gap: 12px; align-items: flex-start; margin: 8px 0; }
+.legend b { color: var(--ink); font-weight: 500; }
+.sym {
+  flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px;
+  margin-top: 1px; border: 1px solid var(--line); border-radius: 4px;
+}
+.sym svg { width: 18px; height: 18px; fill: currentColor; }
+.sym svg.small { width: 10px; height: 10px; }
+.t-fog { background: #0e141a; } .t-seen { background: #12181e; }
+.t-picked { background: #04313c; border-color: #51cade; }
+.g-fog { background: #060a0f; } .g-seen { background: #12181e; } .g-swept { background: #575f67; }
+.c-ink { color: #e3e9ee; } .c-muted { color: #909aa3; } .c-select { color: #51cade; }
+.c-caution { color: #ebbd57; } .c-warn { color: #f66d67; }
