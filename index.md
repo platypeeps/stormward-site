@@ -28,6 +28,21 @@ each test build, and the [roadmap](roadmap.html).
 - An iPad with iPadOS 26 or later.
 - No account and no internet. The core game is free.
 
+## FAQ
+
+### The game makes no sound
+
+Check Silent Mode first. The game stays quiet while the iPad is in
+Silent Mode, like most games do.
+
+1. Swipe down from the top-right corner to open Control Center.
+2. Look for the bell. If it is crossed out, tap it to turn Silent Mode
+   off.
+3. Turn the volume up with the buttons on the side.
+
+Still quiet? Open Settings in the game and check that Sound is on and
+Music is not at zero.
+
 ## Help
 
 Something broken, confusing or unfair? Write to
