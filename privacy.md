@@ -19,8 +19,11 @@ Stormward collects nothing about you.
 - The bug key opens your own Mail app with a new message to me. It
   holds a picture of the screen and a few lines about the game: build,
   iPad model, iPadOS version, the site you were on and your save slot.
-  You see all of it before you send, and nothing goes unless you press
-  Send. I use it only to fix the bug.
+  It also attaches diag.json, a small file about how the game ran: frame
+  rate, heat, memory, battery, load times, recent errors, your game
+  settings and each payday's figures. It holds no names and nothing you
+  typed. You see all of it before you send, and nothing goes unless you
+  press Send. I use it only to fix the bug.
 - The help link on the game's overview page opens this site in your
   browser. The site is on GitHub Pages, which keeps its own server logs
   under GitHub's privacy policy. I do not see who visits.

@@ -40,8 +40,8 @@ Silent Mode, like most games do.
    off.
 3. Turn the volume up with the buttons on the side.
 
-Still quiet? Open Settings in the game and check that Sound is on and
-Music is not at zero.
+Still quiet? Open Settings in the game, then Sound. Check that Music
+and Sound effects are on, and that neither volume is at its lowest.
 
 ## Help
 
@@ -54,7 +54,9 @@ I read every message. I am one developer, so an answer can take a few
 days.
 
 The quickest way: tap the bug key in any screen of the game. It opens
-Mail with a picture of the screen already attached.
+Mail with a picture of the screen and a small diagnostics file already
+attached. The file tells me how smoothly the game ran, so please send
+it along.
 
 ## Privacy
 
