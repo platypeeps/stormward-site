@@ -280,7 +280,8 @@ numbers in it are the game's own: furnace rates, interest, emissions.
 - READ ALOUD reads long texts with the iPad's own voice, offline.
 - DEPTH sets how much of the world's systems you manage.
 - Ten save slots with pictures, a safety save, and no account.
-- A bug key on every screen opens Mail with a picture attached.
+- A bug key on every screen opens Mail with a picture and a
+  diagnostics file attached.
 </details>
 
 ## The parts
