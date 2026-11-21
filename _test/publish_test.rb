@@ -9,7 +9,7 @@
 # or plugin can publish a skipped path. `include` then keeps its
 # default, .htaccess, which wins over exclude: no path part may start
 # with it.
-# Run: ruby _test/publish_test.rb [checkout]
+# Run: ruby _test/publish_test.rb [checkout [commit]]
 require "yaml"
 require "open3"
 
@@ -17,14 +17,20 @@ PAGES = %w[index.md game.md changes.md credits.md privacy.md roadmap.md]
 REPO_PATHS = %w[.gitignore .claude _config.yml _layouts _test]
 CONFIG_KEYS = %w[title defaults exclude]
 
-# Reads the file list and _config.yml from the index, one snapshot.
+# Pages deploys a commit, not the index or the working tree. Resolve
+# the candidate commit once, then read the file list, the modes and
+# _config.yml from that one commit.
 root = ARGV[0] || File.expand_path("..", __dir__)
-# -s gives each entry's mode: only plain files (100644, 100755) pass,
-# since Jekyll follows a symlink that stays inside the source.
-out, status = Open3.capture2("git", "-C", root, "ls-files", "-s", "-z")
-abort "FAIL: git ls-files failed in #{root}" unless status.success?
-yml, status = Open3.capture2("git", "-C", root, "show", ":_config.yml")
-abort "FAIL: no staged _config.yml in #{root}" unless status.success?
+rev = ARGV[1] || "HEAD"
+sha, status = Open3.capture2("git", "-C", root, "rev-parse", "--verify",
+                             "--quiet", "--end-of-options", "#{rev}^{commit}")
+abort "FAIL: no commit #{rev} in #{root}" unless status.success?
+sha = sha.strip
+# -r -z lists every blob and submodule with its mode, NUL-separated.
+out, status = Open3.capture2("git", "-C", root, "ls-tree", "-r", "-z", sha)
+abort "FAIL: git ls-tree failed in #{root}" unless status.success?
+yml, status = Open3.capture2("git", "-C", root, "show", "#{sha}:_config.yml")
+abort "FAIL: no _config.yml in #{sha}" unless status.success?
 config = YAML.safe_load(yml) || {}
 abort "FAIL: _config.yml is not a mapping" unless config.is_a?(Hash)
 exclude = config.fetch("exclude", [])

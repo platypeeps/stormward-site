@@ -13,8 +13,19 @@ class PublishCheckTest < Minitest::Test
   # GIT_INDEX_FILE, ...), cleared so they cannot redirect fixtures.
   GIT_CLEAN = `git rev-parse --local-env-vars`.split.map { |v| [v, nil] }.to_h
 
-  def run_check(dir, env = {})
-    Open3.capture2e(GIT_CLEAN.merge(env), "ruby", CHECK, dir)
+  def run_check(dir, env = {}, commit: nil)
+    Open3.capture2e(GIT_CLEAN.merge(env), "ruby", CHECK, dir, *commit)
+  end
+
+  # Pages deploys commits, so fixtures commit what they stage.
+  def commit(dir)
+    git("-C", dir, "-c", "user.name=operator",
+        "-c", "user.email=operator@example.test",
+        "commit", "-q", "--no-verify", "-m", "fixture")
+  end
+
+  def head(dir)
+    Open3.capture2(GIT_CLEAN, "git", "-C", dir, "rev-parse", "HEAD")[0].strip
   end
 
   def git(*args)
@@ -30,6 +41,7 @@ class PublishCheckTest < Minitest::Test
       end
       git("-C", dir, "init", "-q")
       git("-C", dir, "add", "-f", ".")
+      commit(dir)
       yield dir
     end
   end
@@ -58,7 +70,7 @@ class PublishCheckTest < Minitest::Test
     fixture("_config.yml" => "exclude: []\n", "index.md" => "x") do |dir|
       out, st = run_check(dir, "GIT_DIR" => File.join(dir, "no-git"))
       refute st.success?, out
-      assert_includes out, "git ls-files failed"
+      assert_includes out, "FAIL: no commit HEAD"
     end
   end
 
@@ -169,6 +181,7 @@ class PublishCheckTest < Minitest::Test
       FileUtils.mkdir_p(File.join(dir, "assets"))
       File.rename(File.join(dir, "assets-link"), File.join(dir, "assets/a.md"))
       git("-C", dir, "add", "-f", "assets/a.md")
+      commit(dir)
       out, st = run_check(dir)
       refute st.success?, out
       assert_includes out, "assets/a.md"
@@ -183,6 +196,70 @@ class PublishCheckTest < Minitest::Test
         refute st.success?, out
         assert_includes out, name
       end
+    end
+  end
+
+  # Class: the check must read the commit Pages deploys, not the index.
+
+  def test_staged_deletion_is_ignored
+    fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+            "README.md" => "x") do |dir|
+      git("-C", dir, "rm", "-q", "--cached", "README.md")
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "README.md"
+    end
+  end
+
+  def test_staged_exclusion_is_ignored
+    fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+            "README.md" => "x") do |dir|
+      File.write(File.join(dir, "_config.yml"), "exclude: [README.md]\n")
+      git("-C", dir, "add", "_config.yml")
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "README.md"
+    end
+  end
+
+  def test_staged_mode_change_is_ignored
+    fixture("_config.yml" => "exclude: [CLAUDE.md]\n", "index.md" => "x",
+            "CLAUDE.md" => "x") do |dir|
+      FileUtils.mkdir_p(File.join(dir, "assets"))
+      File.symlink("../CLAUDE.md", File.join(dir, "assets/a.md"))
+      git("-C", dir, "add", "-f", "assets/a.md")
+      commit(dir)
+      File.delete(File.join(dir, "assets/a.md"))
+      File.write(File.join(dir, "assets/a.md"), "x")
+      git("-C", dir, "add", "-f", "assets/a.md")
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "not a plain file: assets/a.md"
+    end
+  end
+
+  def test_named_commit_is_checked
+    fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+            "README.md" => "x") do |dir|
+      leaky = head(dir)
+      git("-C", dir, "rm", "-q", "README.md")
+      commit(dir)
+      out, st = run_check(dir, commit: leaky)
+      refute st.success?, out
+      assert_includes out, "README.md"
+      out, st = run_check(dir)
+      assert st.success?, out
+    end
+  end
+
+  def test_unborn_head_fails
+    Dir.mktmpdir("fixture site", ROOT) do |dir|
+      File.write(File.join(dir, "_config.yml"), "exclude: []\n")
+      git("-C", dir, "init", "-q")
+      git("-C", dir, "add", "_config.yml")
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "FAIL: no commit HEAD"
     end
   end
 end
