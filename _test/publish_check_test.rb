@@ -290,4 +290,13 @@ class PublishCheckTest < Minitest::Test
       assert_includes out, "README.md"
     end
   end
+
+  def test_subdirectory_checkout_lists_whole_tree
+    fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+            "README.md" => "x", "assets/a.png" => "x") do |dir|
+      out, st = run_check(File.join(dir, "assets"))
+      refute st.success?, out
+      assert_includes out, "README.md"
+    end
+  end
 end

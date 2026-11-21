@@ -33,8 +33,10 @@ sha, status = Open3.capture2("git", "-C", root, "rev-parse", "--verify",
                              "--quiet", "--end-of-options", "#{rev}^{commit}")
 abort "FAIL: no commit #{rev} in #{root}" unless status.success?
 sha = sha.strip
-# -r -z lists every blob and submodule with its mode, NUL-separated.
-out, status = Open3.capture2("git", "-C", root, "ls-tree", "-r", "-z", sha)
+# -r -z lists every blob and submodule with its mode, NUL-separated;
+# --full-tree lists from the root even when root is a subdirectory.
+out, status = Open3.capture2("git", "-C", root, "ls-tree", "-r", "-z",
+                             "--full-tree", sha)
 abort "FAIL: git ls-tree failed in #{root}" unless status.success?
 yml, status = Open3.capture2("git", "-C", root, "show", "#{sha}:_config.yml")
 abort "FAIL: no _config.yml in #{sha}" unless status.success?
