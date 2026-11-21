@@ -55,8 +55,10 @@ files = entries.map(&:last)
 special = entries.reject { |mode, _| %w[100644 100755].include?(mode) }
 unknown = config.keys - CONFIG_KEYS
 # Jekyll's default include, .htaccess, wins over exclude and matches
-# any name it prefixes, at any level: such a path always fails.
+# any name it prefixes, at any level: such a path always fails. A root
+# .nojekyll makes Pages skip Jekyll, and so exclude: it always fails.
 leaks = files.reject do |f|
+  next false if f == ".nojekyll"
   next false if f.split("/").any? { |p| p.start_with?(".htaccess") }
   top = f.split("/").first
   PAGES.include?(f) || top == "assets" ||

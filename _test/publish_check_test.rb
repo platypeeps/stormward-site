@@ -299,4 +299,15 @@ class PublishCheckTest < Minitest::Test
       assert_includes out, "README.md"
     end
   end
+
+  # Pages skips Jekyll, and so exclude, when the root has .nojekyll.
+  def test_excluded_nojekyll_fails
+    fixture("_config.yml" => "exclude: [.nojekyll, README.md]\n",
+            "index.md" => "x", ".nojekyll" => "",
+            "README.md" => "x") do |dir|
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, ".nojekyll"
+    end
+  end
 end
