@@ -4,9 +4,10 @@ Support and privacy pages for Stormward, an iPad game.
 A Jekyll site that GitHub Pages builds from `main`.
 
 - A merge to `main` publishes at once: keep repo files off the site.
-- List every non-page file at the top level in `exclude` in `_config.yml`.
-- Run `ruby _test/publish_check_test.rb` and `ruby _test/publish_test.rb`
-  before a merge; add a new page to `PAGES` in `publish_test.rb`,
-  a new `.` or `_` repo path to `REPO_PATHS`.
+- Jekyll skips dot files and `_` names; it publishes every other file.
+- List each file that is not a page or an asset in `exclude` in
+  `_config.yml`.
+- After a merge that adds such a file, check that it answers 404 on
+  the live site.
 - `privacy.md` is the operator's public statement: change it only on
   the operator's word.
