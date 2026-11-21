@@ -18,14 +18,25 @@ CONFIG_KEYS = %w[title defaults exclude]
 
 # Reads the file list and _config.yml from the index, one snapshot.
 root = ARGV[0] || File.expand_path("..", __dir__)
-out, status = Open3.capture2("git", "-C", root, "ls-files", "-z")
+# -s gives each entry's mode: only plain files (100644, 100755) pass,
+# since Jekyll follows a symlink that stays inside the source.
+out, status = Open3.capture2("git", "-C", root, "ls-files", "-s", "-z")
 abort "FAIL: git ls-files failed in #{root}" unless status.success?
 yml, status = Open3.capture2("git", "-C", root, "show", ":_config.yml")
 abort "FAIL: no staged _config.yml in #{root}" unless status.success?
 config = YAML.safe_load(yml) || {}
-exclude = config["exclude"] || []
+abort "FAIL: _config.yml is not a mapping" unless config.is_a?(Hash)
+exclude = config.fetch("exclude", [])
+unless exclude.is_a?(Array) && exclude.all? { |e| e.is_a?(String) }
+  abort "FAIL: _config.yml exclude is not a list of strings"
+end
 
-files = out.split("\0")
+entries = out.split("\0").map do |e|
+  meta, path = e.split("\t", 2)
+  [meta.split(" ").first, path]
+end
+files = entries.map(&:last)
+special = entries.reject { |mode, _| %w[100644 100755].include?(mode) }
 unknown = config.keys - CONFIG_KEYS
 leaks = files.reject do |f|
   top = f.split("/").first
@@ -34,6 +45,9 @@ leaks = files.reject do |f|
 end
 errors = []
 errors << "_config.yml sets #{unknown.join(', ')}" unless unknown.empty?
+unless special.empty?
+  errors << "not a plain file: #{special.map(&:last).join(', ')}"
+end
 errors << "would publish #{leaks.join(', ')}" unless leaks.empty?
 abort "FAIL: #{errors.join('; ')}" unless errors.empty?
 puts "ok: #{files.size} files, each a public page, an asset or skipped"

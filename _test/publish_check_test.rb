@@ -144,4 +144,34 @@ class PublishCheckTest < Minitest::Test
       assert_includes out, "README.md"
     end
   end
+
+  def test_scalar_exclude_fails
+    fixture("_config.yml" => "exclude: README.md.bak\n", "index.md" => "x",
+            "README.md" => "x") do |dir|
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "exclude"
+    end
+  end
+
+  def test_non_hash_config_fails
+    fixture("_config.yml" => "- exclude\n", "index.md" => "x") do |dir|
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "FAIL: _config.yml"
+    end
+  end
+
+  def test_asset_symlink_fails
+    fixture("_config.yml" => "exclude: [CLAUDE.md]\n", "index.md" => "x",
+            "CLAUDE.md" => "x") do |dir|
+      File.symlink("../CLAUDE.md", File.join(dir, "assets-link"))
+      FileUtils.mkdir_p(File.join(dir, "assets"))
+      File.rename(File.join(dir, "assets-link"), File.join(dir, "assets/a.md"))
+      git("-C", dir, "add", "-f", "assets/a.md")
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "assets/a.md"
+    end
+  end
 end
