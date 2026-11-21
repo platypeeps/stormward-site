@@ -174,4 +174,15 @@ class PublishCheckTest < Minitest::Test
       assert_includes out, "assets/a.md"
     end
   end
+
+  def test_excluded_htaccess_fails
+    [".htaccess", ".htaccess.old"].each do |name|
+      fixture("_config.yml" => "exclude: [#{name}]\n",
+              "index.md" => "x", name => "x") do |dir|
+        out, st = run_check(dir)
+        refute st.success?, out
+        assert_includes out, name
+      end
+    end
+  end
 end

@@ -7,7 +7,8 @@
 # - files under a top-level name `exclude` lists exactly.
 # _config.yml may set only CONFIG_KEYS, so no `include`, collection
 # or plugin can publish a skipped path. `include` then keeps its
-# default, .htaccess, a prefix no repo path starts with.
+# default, .htaccess, which wins over exclude: no path part may start
+# with it.
 # Run: ruby _test/publish_test.rb [checkout]
 require "yaml"
 require "open3"
@@ -38,7 +39,10 @@ end
 files = entries.map(&:last)
 special = entries.reject { |mode, _| %w[100644 100755].include?(mode) }
 unknown = config.keys - CONFIG_KEYS
+# Jekyll's default include, .htaccess, wins over exclude and matches
+# any name it prefixes, at any level: such a path always fails.
 leaks = files.reject do |f|
+  next false if f.split("/").any? { |p| p.start_with?(".htaccess") }
   top = f.split("/").first
   PAGES.include?(f) || top == "assets" ||
     REPO_PATHS.include?(top) || exclude.include?(top)
