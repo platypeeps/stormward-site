@@ -1,7 +1,10 @@
 # Fails when a tracked file other than a public page or asset could
 # reach the site. It does not model Jekyll's filter. It allows only
 # paths whose fate is plain:
-# - the public pages and assets/;
+# - the public pages and plain files under assets/: no path part
+#   Jekyll treats specially (_posts, _drafts, other names that start
+#   with _ . # ~ or end with ~), and no front matter, which makes
+#   Jekyll render the file and lets a permalink move it;
 # - repo files under a top-level name that starts with . or _ and is
 #   not one Jekyll reads (_posts, _drafts): REPO_PATHS;
 # - files under a top-level name `exclude` lists exactly.
@@ -49,10 +52,23 @@ end
 
 entries = out.split("\0").map do |e|
   meta, path = e.split("\t", 2)
-  [meta.split(" ").first, path]
+  mode, _type, blob = meta.split(" ")
+  [mode, path, blob]
 end
-files = entries.map(&:last)
-special = entries.reject { |mode, _| %w[100644 100755].include?(mode) }
+files = entries.map { |_, path, _| path }
+special = entries.reject { |mode, _, _| %w[100644 100755].include?(mode) }
+assets = (entries - special).select do |_, path, _|
+  path.start_with?("assets/")
+end
+odd = assets.map { |_, path, _| path }.select do |f|
+  f.split("/").drop(1).any? { |p| p.match?(/\A[_.#~]|~\z/) }
+end
+# Jekyll's has_yaml_header?: the first line matches this.
+matter = assets.select do |_, _, blob|
+  body, st = Open3.capture2("git", "-C", root, "cat-file", "blob", blob)
+  abort "FAIL: git cat-file failed for #{blob}" unless st.success?
+  body.b.match?(/\A---\s*\r?\n/n)
+end.map { |_, path, _| path }
 unknown = config.keys - CONFIG_KEYS
 # Jekyll's default include, .htaccess, wins over exclude and matches
 # any name it prefixes, at any level: such a path always fails. A root
@@ -67,8 +83,10 @@ end
 errors = []
 errors << "_config.yml sets #{unknown.join(', ')}" unless unknown.empty?
 unless special.empty?
-  errors << "not a plain file: #{special.map(&:last).join(', ')}"
+  errors << "not a plain file: #{special.map { |e| e[1] }.join(', ')}"
 end
 errors << "would publish #{leaks.join(', ')}" unless leaks.empty?
+errors << "special asset name: #{odd.join(', ')}" unless odd.empty?
+errors << "front matter: #{matter.join(', ')}" unless matter.empty?
 abort "FAIL: #{errors.join('; ')}" unless errors.empty?
 puts "ok: #{files.size} files, each a public page, an asset or skipped"

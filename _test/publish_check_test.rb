@@ -310,4 +310,52 @@ class PublishCheckTest < Minitest::Test
       assert_includes out, ".nojekyll"
     end
   end
+
+  # Class: a path under assets/ whose fate Jekyll changes. Jekyll reads
+  # _posts and _drafts in any directory, and renders a file that starts
+  # with front matter, which a permalink can move.
+
+  def test_asset_post_and_draft_fail
+    %w[_posts _drafts].each do |sub|
+      path = "assets/#{sub}/2026-01-01-notes.md"
+      fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+              path => "---\n---\nx") do |dir|
+        out, st = run_check(dir)
+        refute st.success?, out
+        assert_includes out, path
+      end
+    end
+  end
+
+  def test_asset_special_name_fails
+    %w[assets/.hidden.png assets/_part.png assets/x/#a.png
+       assets/~a.png assets/a.png~].each do |path|
+      fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+              path => "x") do |dir|
+        out, st = run_check(dir)
+        refute st.success?, out
+        assert_includes out, path
+      end
+    end
+  end
+
+  def test_asset_front_matter_fails
+    ["---\npermalink: /x/\n---\nx", "--- \r\n---\nx"].each do |body|
+      fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+              "assets/a.css" => body) do |dir|
+        out, st = run_check(dir)
+        refute st.success?, out
+        assert_includes out, "front matter: assets/a.css"
+      end
+    end
+  end
+
+  def test_asset_dashes_later_pass
+    fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+            "assets/a.css" => "/* x */\n---\n",
+            "assets/b.txt" => "----x\n") do |dir|
+      out, st = run_check(dir)
+      assert st.success?, out
+    end
+  end
 end
