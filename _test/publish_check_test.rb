@@ -271,7 +271,7 @@ class PublishCheckTest < Minitest::Test
     fixture("_config.yml" => "exclude: []\n", "index.md" => "x") do |clean|
       fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
               "README.md" => "x") do |dir|
-        out, st = run_check(dir, "GIT_DIR" => File.join(clean, ".git"))
+        out, st = run_check(dir, { "GIT_DIR" => File.join(clean, ".git") })
         refute st.success?, out
         assert_includes out, "README.md"
       end
