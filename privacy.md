@@ -4,15 +4,29 @@ title: Stormward privacy policy
 
 # Privacy policy
 
-Last updated: 2026-11-15
+Last updated: 2026-11-20
 
 Stormward collects nothing about you.
 
-- It makes no network connections. Nothing you do in it leaves your iPad
-  unless you send it yourself.
-- It has no accounts, no ads, no analytics and no tracking.
+- The game plays offline. It goes online only for the things named
+  below. Nothing else you do in it leaves your iPad unless you send it
+  yourself.
+- It has no account of its own, no ads, no analytics and no tracking.
 - Saves, settings and save pictures stay on the iPad, in the game's own
   storage. Delete the game and they go with it.
+- iCloud saves back up your run slots to your own iCloud account, so
+  your other iPad can copy a run. They are on when the iPad is signed
+  in to iCloud. Apple holds the copies under your account, and I cannot
+  see them. Turn them off under iCloud saves in the game's SETTINGS.
+  Copies already in iCloud are yours to delete in iPadOS Settings.
+- Game Center is optional. If you are signed in to it, your
+  achievements and leaderboard scores go to Apple, and other players
+  see them beside your Game Center name. Sign out of Game Center in
+  iPadOS Settings to stop that.
+- Tips are optional and unlock nothing in play. Apple takes the
+  payment. I never see your name, card or address: Apple sends me sales
+  totals, not who paid. Other players see a supporter badge by your
+  name only if you switch that on.
 - Where the game uses Apple Intelligence, it runs Apple's on-device
   model. Your questions and its answers stay on the iPad, and the game
   does not store them.
@@ -27,6 +41,10 @@ Stormward collects nothing about you.
 - The help link on the game's overview page opens this site in your
   browser. The site is on GitHub Pages, which keeps its own server logs
   under GitHub's privacy policy. I do not see who visits.
+- Test builds from TestFlight download one small settings file from
+  this site when they start, so I can adjust a test without a new
+  build. GitHub sees that request as it sees any visit. The App Store
+  game does not download it.
 - If you allow it in iPadOS settings, Apple may collect crash reports
   and usage data. That is Apple's collection, under Apple's privacy
   policy. I only see the anonymous crash reports Apple passes on.
