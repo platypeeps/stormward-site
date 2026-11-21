@@ -50,7 +50,7 @@ class PublishCheckTest < Minitest::Test
             "_layouts/default.html" => "x") do |dir|
       out, st = run_check(dir)
       assert st.success?, out
-      assert_includes out, "ok: 2 published files, all public"
+      assert_includes out, "ok: 6 files"
     end
   end
 
@@ -96,6 +96,42 @@ class PublishCheckTest < Minitest::Test
       out, st = run_check(dir)
       refute st.success?, out
       assert_includes out, ".htaccess"
+    end
+  end
+
+  def test_dated_post_fails
+    fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+            "_posts/2026-01-01-notes.md" => "---\n---\nx") do |dir|
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "_posts/2026-01-01-notes.md"
+    end
+  end
+
+  def test_htaccess_prefix_fails
+    fixture("_config.yml" => "exclude: []\n",
+            "index.md" => "x", ".htaccess.old" => "x") do |dir|
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, ".htaccess.old"
+    end
+  end
+
+  def test_collection_config_fails
+    fixture("_config.yml" => "collections: { notes: { output: true } }\n",
+            "index.md" => "x") do |dir|
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "collections"
+    end
+  end
+
+  def test_excluded_directory_passes
+    fixture("_config.yml" => "exclude: [README.md, docs]\n",
+            "index.md" => "x", "README.md" => "x",
+            "docs/notes.md" => "x") do |dir|
+      out, st = run_check(dir)
+      assert st.success?, out
     end
   end
 end
