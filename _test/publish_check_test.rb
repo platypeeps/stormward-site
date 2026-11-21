@@ -68,7 +68,7 @@ class PublishCheckTest < Minitest::Test
 
   def test_failed_git_listing_fails
     fixture("_config.yml" => "exclude: []\n", "index.md" => "x") do |dir|
-      out, st = run_check(dir, "GIT_DIR" => File.join(dir, "no-git"))
+      out, st = run_check(File.join(dir, "missing"))
       refute st.success?, out
       assert_includes out, "FAIL: no commit HEAD"
     end
@@ -260,6 +260,34 @@ class PublishCheckTest < Minitest::Test
       out, st = run_check(dir)
       refute st.success?, out
       assert_includes out, "FAIL: no commit HEAD"
+    end
+  end
+
+  # Class: a read the caller can redirect away from the commit the
+  # checkout names. Git takes repo-local variables (GIT_DIR, ...) over
+  # -C, and replace refs swap a commit for another.
+
+  def test_caller_git_dir_is_not_used
+    fixture("_config.yml" => "exclude: []\n", "index.md" => "x") do |clean|
+      fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+              "README.md" => "x") do |dir|
+        out, st = run_check(dir, "GIT_DIR" => File.join(clean, ".git"))
+        refute st.success?, out
+        assert_includes out, "README.md"
+      end
+    end
+  end
+
+  def test_replace_ref_is_not_used
+    fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+            "README.md" => "x") do |dir|
+      leaky = head(dir)
+      git("-C", dir, "rm", "-q", "README.md")
+      commit(dir)
+      git("-C", dir, "replace", leaky, head(dir))
+      out, st = run_check(dir, commit: leaky)
+      refute st.success?, out
+      assert_includes out, "README.md"
     end
   end
 end

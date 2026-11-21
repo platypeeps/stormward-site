@@ -20,6 +20,13 @@ CONFIG_KEYS = %w[title defaults exclude]
 # Pages deploys a commit, not the index or the working tree. Resolve
 # the candidate commit once, then read the file list, the modes and
 # _config.yml from that one commit.
+# Git takes repo-local variables (GIT_DIR, GIT_OBJECT_DIRECTORY, ...)
+# over -C, and replace refs swap a commit for another: a hook or
+# caller could point every read at other content. Clear them all.
+vars, status = Open3.capture2("git", "rev-parse", "--local-env-vars")
+abort "FAIL: git rev-parse --local-env-vars failed" unless status.success?
+vars.split.each { |v| ENV.delete(v) }
+ENV["GIT_NO_REPLACE_OBJECTS"] = "1"
 root = ARGV[0] || File.expand_path("..", __dir__)
 rev = ARGV[1] || "HEAD"
 sha, status = Open3.capture2("git", "-C", root, "rev-parse", "--verify",
