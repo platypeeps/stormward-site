@@ -16,11 +16,14 @@ PAGES = %w[index.md game.md changes.md credits.md privacy.md roadmap.md]
 REPO_PATHS = %w[.gitignore .claude _config.yml _layouts _test]
 CONFIG_KEYS = %w[title defaults exclude]
 
+# Reads the file list and _config.yml from the index, one snapshot.
 root = ARGV[0] || File.expand_path("..", __dir__)
-config = YAML.load_file(File.join(root, "_config.yml")) || {}
-exclude = config["exclude"] || []
 out, status = Open3.capture2("git", "-C", root, "ls-files", "-z")
 abort "FAIL: git ls-files failed in #{root}" unless status.success?
+yml, status = Open3.capture2("git", "-C", root, "show", ":_config.yml")
+abort "FAIL: no staged _config.yml in #{root}" unless status.success?
+config = YAML.safe_load(yml) || {}
+exclude = config["exclude"] || []
 
 files = out.split("\0")
 unknown = config.keys - CONFIG_KEYS

@@ -134,4 +134,14 @@ class PublishCheckTest < Minitest::Test
       assert st.success?, out
     end
   end
+
+  def test_unstaged_config_edit_is_ignored
+    fixture("_config.yml" => "exclude: []\n", "index.md" => "x",
+            "README.md" => "x") do |dir|
+      File.write(File.join(dir, "_config.yml"), "exclude: [README.md]\n")
+      out, st = run_check(dir)
+      refute st.success?, out
+      assert_includes out, "README.md"
+    end
+  end
 end
