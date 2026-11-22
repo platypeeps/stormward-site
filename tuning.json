@@ -1,0 +1,77 @@
+{
+    "version": 1,
+    "values": [
+        {
+            "key": "storm_minutes",
+            "value": 60
+        },
+        {
+            "key": "enemy_density",
+            "value": 1
+        },
+        {
+            "key": "raid_chance",
+            "value": 1
+        },
+        {
+            "key": "raid_fee",
+            "value": 100
+        },
+        {
+            "key": "chain_steps",
+            "value": 2
+        },
+        {
+            "key": "research_all",
+            "value": 0
+        },
+        {
+            "key": "frame_meter",
+            "value": 1
+        },
+        {
+            "key": "stick_dead_zone",
+            "value": 0.08
+        },
+        {
+            "key": "walk_below",
+            "value": 0.4
+        },
+        {
+            "key": "sprint_above",
+            "value": 0.85
+        },
+        {
+            "key": "walk_speed",
+            "value": 3
+        },
+        {
+            "key": "run_speed",
+            "value": 7
+        },
+        {
+            "key": "sprint_speed",
+            "value": 11
+        },
+        {
+            "key": "sprint_seconds",
+            "value": 5
+        },
+        {
+            "key": "refill_seconds",
+            "value": 8
+        },
+        {
+            "key": "sprint_rearm",
+            "value": 0.25
+        },
+        {
+            "key": "view_zoom",
+            "value": 0.15
+        },
+        {
+            "key": "view_pan",
+            "value": 0.6
+        }
+    ]
+}
