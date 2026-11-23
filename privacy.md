@@ -4,9 +4,10 @@ title: Stormward privacy policy
 
 # Privacy policy
 
-Last updated: 2026-11-20
+Last updated: 2026-11-23
 
-Stormward collects nothing about you.
+Stormward collects nothing about you, except the sales you share if
+you turn on SHARED PRICES.
 
 - The game plays offline. It goes online only for the things named
   below. Nothing else you do in it leaves your iPad unless you send it
@@ -23,6 +24,15 @@ Stormward collects nothing about you.
   achievements and leaderboard scores go to Apple, and other players
   see them beside your Game Center name. Sign out of Game Center in
   iPadOS Settings to stop that.
+- SHARED PRICES is optional and off by default. Turn it on under
+  Shared prices in the game's SETTINGS, and each sale you make goes to
+  the game's public database in Apple's iCloud: the colony, the good,
+  the count, the time and a random id for your copy of the game. Apple
+  tags each sale with an id for your iCloud account, so your sales are
+  linked to that account. Other players' games read them to move their
+  own prices, and I can see them too. The game uses them only for
+  prices, not for tracking or ads. Turn it off in SETTINGS to stop
+  sending sales.
 - Tips are optional and unlock nothing in play. Apple takes the
   payment. I never see your name, card or address: Apple sends me sales
   totals, not who paid. Other players see a supporter badge by your
