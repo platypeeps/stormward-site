@@ -11,25 +11,21 @@ something matters more. Release date and price get decided in January.
 
 ## Next
 
-- **A landing pad.** You start without one. Build it, and the ship lands
-  there, with room for a second ship. It opens trade with colonies off
-  world; you set that trade up by tapping the pad.
-- **Sound.** Few sounds, each tied to something that changed, and each
-  with something on screen too, so the game plays muted.
-- **Factory feedback** from testers: clearer panels and crew portraits.
+- **More on every tile.** Caves you can enter, wildlife, patrols and a
+  roaming elite enemy.
+- **Deeper bases.** Up to seven levels, each dug with research and
+  stock. Going deeper has a cost.
+- **The evacuees' colony.** Help them bring their dead colony back.
 
 ## After that
 
-- **Missions, a log and skills.** Short jobs of five kinds and goals
-  with rewards.
-- **Health.** Wounds that stay until treated, clinics, illness and
-  outbreaks.
-- **Polities.** Two governments with their own money, laws, courts and
-  press.
+- **Skills** for your crew.
+- **Illness and outbreaks**, on top of the wounds and clinics already
+  in.
+- **More for each polity:** its own money, courts and press.
 - **A codex you can ask.** Checked entries in eight areas, asked again
   in play.
-- **Rivals** you switch on, each with an agenda you can counter.
-- **Light** for each biome, and a REDUCE MOTION switch.
+- **Light** made for each biome.
 
 ## Later
 
