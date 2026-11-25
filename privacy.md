@@ -4,10 +4,11 @@ title: Stormward privacy policy
 
 # Privacy policy
 
-Last updated: 2026-11-23
+Last updated: 2026-11-24
 
 Stormward collects nothing about you, except the sales you share if
-you turn on SHARED PRICES.
+you turn on SHARED PRICES, and the rival name and logo they carry if
+you also turn on SHOW ME AS A RIVAL.
 
 - The game plays offline. It goes online only for the things named
   below. Nothing else you do in it leaves your iPad unless you send it
@@ -33,6 +34,19 @@ you turn on SHARED PRICES.
   own prices, and I can see them too. The game uses them only for
   prices, not for tracking or ads. Turn it off in SETTINGS to stop
   sending sales.
+- SHOW ME AS A RIVAL is optional and off by default, and it works only
+  with SHARED PRICES on. Turn it on under Show me as a rival in the
+  game's SETTINGS, and each sale you send also carries a company name
+  and a logo. The game builds the name from two preset word lists, and
+  the logo is one of three rival pictures. You never type either, so
+  neither holds your own name. Other players see them as a rival in
+  the STANDING tab of their JOURNAL, once your sales reach a colony
+  they trade at, and they can block you there. Like the sales, they are
+  linked to your iCloud account, and I can see them too. To hide your
+  rival, turn this off and keep SHARED PRICES on: your next sale
+  carries no name, and each game that reads it stops showing you. Sales
+  already sent keep the name and logo they carried, and a game that
+  has not read a newer sale can still show them.
 - Tips are optional and unlock nothing in play. Apple takes the
   payment. I never see your name, card or address: Apple sends me sales
   totals, not who paid. Other players see a supporter badge by your
