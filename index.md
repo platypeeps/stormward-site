@@ -28,6 +28,10 @@ each test build, and the [roadmap](roadmap.html).
 - An iPad with iPadOS 26 or later.
 - No account and no internet. The core game is free.
 
+Testing on a Mac? A test build for Macs with Apple silicon and
+macOS 26 or later goes out through TestFlight. The help below covers
+it too.
+
 ## FAQ
 
 ### The game makes no sound
@@ -47,16 +51,43 @@ and Sound effects are on, and that neither volume is at its lowest.
 
 Something broken, confusing or unfair? Write to
 [stormward@ignoranceisbliss.com](mailto:stormward@ignoranceisbliss.com).
-Say which iPad you play on and what you did just before it went wrong.
-A screenshot helps a lot.
+Say which iPad or Mac you play on and what you did just before it went
+wrong. A screenshot helps a lot.
 
 I read every message. I am one developer, so an answer can take a few
 days.
 
 The quickest way: tap the bug key in any screen of the game. It opens
-Mail with a picture of the screen and a small diagnostics file already
-attached. The file tells me how smoothly the game ran, so please send
-it along.
+a new mail with a picture of the screen and a small diagnostics file
+already attached. The file tells me how smoothly the game ran, so
+please send it along.
+
+### When the files are not attached
+
+Sometimes the game cannot attach the files itself, for example when
+no mail account is set up. It then opens a plain mail and saves the
+files on the device. A note in the game says which files it saved.
+The mail lists the full path of each file, under the line "please
+keep the lines below".
+
+On an iPad you cannot reach those files. Send the mail as it is, and
+add a screenshot of your own if you can.
+
+On a Mac, attach the files by hand. They are in the game's own
+folder in your Library:
+
+1. In Finder, choose Go > Go to Folder.
+2. Type `~/Library/Containers` and press Return.
+3. Open the Stormward folder, then Data, Library, Application Support,
+   platypeeps and Stormward.
+4. Drag the newest `report-….png` and `report-…-diag.json` files into
+   the mail.
+
+### Which build you play
+
+The mail names the game's version on the "build:" line. On a Mac
+test build, also give the build number: TestFlight shows it in
+brackets after the version, such as 1.0 (2611250530).
 
 ## Privacy
 
